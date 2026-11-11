@@ -102,7 +102,7 @@ svg {
 
 /* ------------------ Reading Pages ------------------ */
 
-:is(#research-outer, #projects-outer, #interests-outer) .page-inner {
+#research-outer .page-inner {
   box-sizing: border-box;
   width: 100%;
   max-width: 800px;
@@ -110,6 +110,34 @@ svg {
   margin-right: auto;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+/* ------------------ About ------------------ */
+
+#about-outer .page-inner {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 660px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.about-copy {
+  margin-top: 36px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.about-copy p {
+  margin: 0 0 22px;
+}
+
+.about-copy p:last-child {
+  margin-bottom: 0;
 }
 
 /* ------------------ Nav ------------------ */
@@ -280,7 +308,7 @@ svg {
             </div>
           </div>
         </foreignObject>
-        <foreignObject id="research-outer" class="page-outer" x="-1200" y="-700" width="100%" height="200%">
+        <foreignObject id="research-outer" class="page-outer" x="-1000" y="-600" width="100%" height="200%">
           <div class="page-inner" xmlns="http://www.w3.org/1999/xhtml">
             <div class="title">
               <div>Research</div>
@@ -346,394 +374,203 @@ svg {
             </div>
           </div>
         </foreignObject>
-        <foreignObject id="interests-outer" class="page-outer" x="1200" y="-700" width="100%" height="200%">
+        <foreignObject id="about-outer" class="page-outer" x="1000" y="-600" width="100%" height="200%">
           <div class="page-inner" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="title">
-              <div>Interests</div>
-              <div class="text-base">things I like to talk about</div>
-            </div>
-            <div class="list">
-              <div class="list-item">
-                <div class="heading">
-                  <div> <i class="fas fa-network-wired" style="margin-right: 10px"></i>Networks</div>
-                </div>
-                <div class="notes">
-                  <p>Experience researching in the field of computer networks with software-defined networks and network routing optimization</p>
-                  <p>Interested in real-time distributed streaming technologies, peer-to-peer networks and service mesh frameworks in microservice deployments</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <div> <i class="fas fa-shield-alt" style="margin-right: 10px"></i>Security</div>
-                </div>
-                <div class="notes">
-                  <p>Experience with OAuth 2.0, JWT authentication and API gateway services including Kong, AWS API Gateway</p>
-                  <p>Interested in best security practices in large microservice ecosystems to keep secrets synced securely and safely</p>
-                  <p>Enjoy discussing API rate-limiting, authentication and access control</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <div> <i class="fas fa-database" style="margin-right: 10px"></i>Databases</div>
-                </div>
-                <div class="notes">
-                  <p>Experience with many databases in production queuing and streaming systems, and deep production knowledge with the following database systems, indexes and caches - Cassandra, Redis, Postgres, Solr, Elasticsearch, Memcached</p>
-                  <p>Interested in distributed database consistency challenges including data replication and coordination as well as the tradeoffs between reliability vs performance and memory vs disk storage</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <div> <i class="fas fa-box-open" style="margin-right: 10px"></i>Infrastructure</div>
-                </div>
-                <div class="notes">
-                  <p>Experience with containers and Kubernetes deployments, exploring service versioning and API diff generation for catching regressions</p>
-                  <p>Interested in service containerization, container orchestration, logging frameworks such as Grafana and Prometheus and CI/CD pipelines with automated testing</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <div> <i class="fas fa-code" style="margin-right: 10px"></i>Web</div>
-                </div>
-                <div class="notes">
-                  <p>Experience with the latest web frameworks including React, Next.js and React state management tools and interested in the future of web technologies as we continue to build high-powered clients</p>
-                  <p>Interested in WebAssembly, WebRTC, and other methods for more powerful client-side applications and client-side computing</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <div> <i class="fas fa-dice-d6" style="margin-right: 10px"></i>Blockchain</div>
-                </div>
-                <div class="notes">
-                  <p>Expert in developing smart contracts on EVM and Solana and have been following the movements of the blockchain space closely</p>
-                  <p>Interested in how blockchain technology and various consensus algorithms can be used to sync data worldwide on a distributed ledger</p>
-                  <p>Enjoy discussing trade-offs between databases, blockchains, new consensus mechanisms and other distributed ledger technologies</p>
-                </div>
-              </div>
+            <div class="title">About</div>
+            <div class="about-copy">
+              <p>I'm Jeremy, a software engineer and technologist based in New York.</p>
+              <p>I'm passionate about computers, engineering and how to build practical, scalable software systems.</p>
+              <p>I studied electrical engineering and computer science at MIT, then stayed for a master's focused on computer systems. My <a href="docs/thesis.pdf">research</a> explored how networks can route traffic while accounting for failures.</p>
+              <p>I also swam and played water polo at MIT and grew up in Boston, MA.</p>
             </div>
           </div>
         </foreignObject>
-        <foreignObject id="projects-outer" class="page-outer" x="1200" y="700" width="100%" height="200%">
-          <div class="page-inner" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="title">
-              Features
-            </div>
-            <div class="list">
-              <div class="list-item">
-                <div class="heading">
-                  <div> Apple</div>
-                </div>
-                <div class="notes">
-                  <p>Various cross-functional social music projects exposed via core query API including social search, friends, friends are listening, social graph, and shared listening via FaceTime and SharePlay</p>
-                  <p>Music ML-based audio features: loudness, energy, acousticness, etc. BPM and key detection was a project that enabled more features like smooth song transitions on clients, partner integrations with Porsche, as well as the Photos Memories project listed below</p>
-                  <p>Third-party and partner API JWT authentication, global and dynamic rate limiting used for all media integrations including App Store, Music, Podcasts, TV+ on platforms like Samsung, LG TV, Porsche, Tesla and the <a href="https://developer.apple.com/documentation/applemusicapi/">third-party API</a></p>
-                  <p>I was the DRI (directly responsible individual) for the Photos Memories music recognition cross-functional product - received a <b>patent</b> for the work using music ML data to inform transitions and match audio and photo filters locally on-device to a collection of photos</p>
-                  <p>Podcasts data query API for serving first-party apps on all platforms and partner integrations</p>
-                </div>
-              </div>
-            </div>
-            <div style="margin-top:30px" class="title">
-              Personal Projects
-            </div>
-            <div class="list">
-              <div class="list-item">
-                <div class="heading">
-                  <div><i class="fas fa-key" style="margin-right: 10px"></i>Pods</div>
-                </div>
-                <div class="notes">
-                  <p>Personal data store with data access API for giving generic applications limited access to personal data</p>
-                  <p>Implemented OAuth 2.0 + OpenID Connect as a set of microservices that together authenticate and authorize database reads and writes</p>
-                  <p>Flexible translation layer that exposes database queries as an HTTP API that takes a POST request with an access token and raw DB query to execute with permissions</p>
-                  <p>Deployed on a Raspberry Pi to serve as a home-owned password manager that connected via home Wi-Fi and an application can request read access to sync state or retrieve individual passwords</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <img class="logo" src="img/stations.svg" />
-                </div>
-                <div class="notes">
-                  <p>Web application that used Apple Music, Spotify and SoundCloud APIs to create shared playlists and playlists including songs from multiple providers</p>
-                  <p>React/Redux-based front-end, Go backend, and MySQL database deployed entirely on AWS EC2</p>
-                  <p>Server-side queues and WebSockets allow for clients to listen simultaneously and sync up playback, up-vote, down-vote and add new songs to the queue and receive real-time notifications</p>
-                  <p>Won 2nd place in the MIT web design competition</p>
-                </div>
-              </div>
-              <div class="list-item">
-                <div class="heading">
-                  <img class="logo" id="up-logo" style="height: 90%" src="img/uplogo-black.png"/>
-                </div>
-                <div class="notes">
-                  <p>Started an LLC in high school to fly drones and take photos of houses for real estate companies</p>
-                  <p>Developed video editing, photo editing, graphic design, and communication skills</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </foreignObject>
-        <foreignObject class="page-outer" id="skills-outer" x="0" y="1400" width="100%" height="200%">
-          <div class="page-inner skills" style="margin-top:10px" xmlns="http://www.w3.org/1999/xhtml">
-            <style>
-              .header {
-                display: flex;
-                justify-content: space-between;
-                justify-items: center;
-                margin-bottom: 10px;
-              }
-              .description {
-                color: #4a4a4a;
-                font-size: 12px;
-              }
-              .table {
-                margin-top: 20px;
-                font-size: 12px;
-              }
-              .table .row-header {
-                border-bottom: 1px solid #ddd;
-                font-weight: 600;
-              }
-              .table .row {
-                padding: 10px 5px;
-                width: 100%;
-                display: flex;
-              }
-              .table .row .first{
-                flex-grow: 1;
-                width: 25%;
-              }
-              .table .row .second {
-                flex-grow: 3;
-                width: 75%;
-              }
-            </style>
-            <div class="header">
-              <div>Programming Languages</div>
-            </div>
-            <div class="description">Some notes on the languages I've used, the systems I've built with them, and the trade-offs I've encountered.</div>
-            <div class="table">
-              <div class="row row-header">
-                <div class="first">Name</div>
-                <div class="second">Description</div>
-              </div>
-              <div class="row">
-                <div class="first">TypeScript</div>
-                <div class="second">Massive fan of TypeScript's flexible, expressive type system. I've used it for React apps, SDKs, and serverless Node.js APIs.</div>
-              </div>
-              <div class="row">
-                <div class="first">Java</div>
-                <div class="second">Built and operated Java services at scale at Apple. I value its debugging tools and concurrency support, while staying mindful of garbage collection and JVM overhead.</div>
-              </div>
-              <div class="row">
-                <div class="first">Rust</div>
-                <div class="second">Built production smart contracts and a blockchain data index using Rust and Postgres at Cardinal. I like its focus on safe, performant code, especially when working with concurrency.</div>
-              </div>
-              <div class="row">
-                <div class="first">Go</div>
-                <div class="second">Built an HTTP proxy that mirrored requests, compared responses, and stored results in Cassandra, plus a backend for synchronized music playback. I'm a fan of Go's networking libraries and interfaces.</div>
-              </div>
-              <div class="row">
-                <div class="first">Python</div>
-                <div class="second">Used for scripting, data analysis, machine learning, and Django web services. Type annotations matter to me when production code is shared across teams.</div>
-              </div>
-              <div class="row">
-                <div class="first">Clojure</div>
-                <div class="second">Used extensively for Apple's query APIs, including data transformation and asynchronous processing. I liked combining functional programming with access to the Java ecosystem.</div>
-              </div>
-              <div class="row">
-                <div class="first">Julia</div>
-                <div class="second">Used with Gurobi to implement the TEAVAR routing optimization. I found it a natural fit for expressing mathematical objectives and constraints.</div>
-              </div>
-              <div class="row">
-                <div class="first">Scala</div>
-                <div class="second">Used for load testing with Gatling.</div>
-              </div>
-              <div class="row">
-                <div class="first">C/C++</div>
-                <div class="second">Used C++ for low-latency trading APIs at Citadel and C/C++ for embedded systems and parallel computing. I'd generally reach for Rust when starting a new systems project.</div>
-              </div>
-            </div>
-          </div>
-        </foreignObject>
-        <foreignObject class="page-outer" id="resume-outer" x="-1200" y="700" width="100%" height="200%">
-          <div class="page-inner resume" xmlns="http://www.w3.org/1999/xhtml">
-            <style>
-              .resume {
-                font-size: 7px;
-                width: 550px;
-                margin: 0px auto;
-              }
-              .resume .r-item {
-                margin-top: 5px;
-              }
-              .resume .r-section {
-                margin-top: 10px;
-              }
-              .resume a {
-                color: #0044d6;
-              }
-              .resume .justify-between {
-                display: flex;
-                justify-content: space-between
-              }
-              .resume .text-medium {
-                font-size: 9px;
-              }
-              .resume .r-notes {
-                display: flex;
-                flex-direction: column;
-                padding-left: 20px;
-              }
-              .resume .text-italic {
-                font-style: italic;
-              }
-            </style>
-            <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-              <div style="font-size:15px">Jeremy Bogle</div>
-              <div style="text-align:right">
-                <a href="mailto:jeremy@bogle.cc">jeremy@bogle.cc</a>
-                <div href="tel:+1-781-835-9305">781-835-9305</div>
-              </div>
-            </div>
-            <div class="r-section">
-              <div class="text-medium">EDUCATION</div>
-              <hr/>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Massachusetts Institute of Technology (Master's)</div>
-                  <div>September 2018 - June 2019</div>
-                </div>
-                <div class="justify-between">
-                  <div class="text-italic">Master's in Computer Science with a Concentration in Computer Systems</div>
-                  <div>GPA: 5.0/5.0</div>
-                </div>
-                <div class="r-notes">
-                  <div>• Database Systems, Computer Networks, Advanced Algorithms, Distributed Systems, Computer Systems Security</div>
-                  <div>• First author on published research applying financial risk theory to optimize network traffic (<a href="https://news.mit.edu/2019/reduce-cost-cloud-infrastructure-0819">https://news.mit.edu/2019/reduce-cost-cloud-infrastructure-0819</a>)</div>
-                </div>
-              </div>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Massachusetts Institute of Technology (Undergrad)</div>
-                  <div>September 2014 - June 2018</div>
-                </div>
-                <div class="justify-between">
-                  <div class="text-italic">B.S. in Electrical Engineering and Computer Science with a Minor in Economics</div>
-                  <div>GPA: 4.4/5.0</div>
-                </div>
-                <div class="r-notes">
-                  <div>• CS Coursework: Software Construction (Java), Software Studio (JavaScript), AI, Machine Learning, User Interface Design, Algorithms, Computation Structures (Assembly, C/C++), Programming Fundamentals (Python),  Mathematics for Computer Science</div>
-                  <div>• EE Coursework: Microcomputer Project Laboratory (Assembly, C), Electromagnetic Waves and Applications, Circuits and Electronics</div>
-                  <div>• Economics Coursework: Health Economics, Public Economics and Policy, Microeconomics, Macroeconomics</div>
-                </div>
-              </div>
-            </div>
-            <div class="r-section">
-              <div class="text-medium">EXPERIENCE</div>
-              <hr/>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Cardinal Labs</div>
-                  <div>December 2021 - Present</div>
-                </div>
-                <div class="text-italic">Co-founder & CTO</div>
-                <div class="r-notes">
-                  <div>• Worked on the cutting edge to scale Solana blockchain via smart contracts (<b>Rust</b>), app development (<b>React, TypeScript</b>) and related cloud infrastructure</div>
-                  <div>• With a team of 5, deployed 15+ smart contracts, SDKs (<b>serverless, TypeScript</b>), reached 5mm+ transactions, 150k+ unique users, and 40k MAU</div>
-                  <div>• Developed CI/CD for node deployments (<b>Terraform</b>), read-optimized query index (<b>Postgres, GraphQL</b>), and smart contract upgrades with multi-party sign-off</div>
-              </div>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Apple</div>
-                  <div>August 2018 - September 2018, August 2019 - December 2021</div>
-                </div>
-                <div class="text-italic">Senior Software Engineer</div>
-                <div class="r-notes">
-                  <div>• Architected systems and infra (<b>Java, Clojure</b>) on k8s serving billions of users and devices worldwide with 100k+ QPS across Apple Music, Podcasts, TV+</div>
-                  <div>• Developed global automated API diff service (<b>Go</b>) and dashboard for safer deployments with anomaly detection, rollback, and sign-off features</div>
-                  <div>• Owned and managed globally distributed rate limit, authentication, and API infra (<b>Kong, Lua</b>) for servicing internal, third-party, and partner integrations</div>
-                  <div>• Led multiple cross-functional feature projects involving product, design, and engineering teams over multiple months shipping across multiple platforms</div>
-                  <div>• Worked closely with SREs to address production issues, moved core services from bare metal to edge DCs (<b>k8s, Spinnaker, Helm</b>), led team infra trainings</div>
-                </div>
-              </div>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Microsoft + MIT CSAIL</div>
-                  <div>August 2018 - August 2019</div>
-                </div>
-                <div class="text-italic">Software Engineer / Researcher (graduate student)</div>
-                <div class="r-notes">
-                  <div>• Applied financial theory to optimize inter-data-center traffic to minimize bandwidth usage and congestion and maximize availability - algorithm written in <b>Julia</b></div>
-                  <div>• First author on research paper (<a href="https://dl.acm.org/doi/10.1145/3341302.3342069">https://dl.acm.org/doi/10.1145/3341302.3342069</a>) published in SIGCOMM 2019 and presented in Beijing (now over 60+ citations)</div>
-                  <div>• Integrated real Microsoft historical WAN data into backtesting experiments, graphical and statistical analysis (<b>Julia, Python</b>) for the paper</div>
-                </div>
-              </div>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Novartis</div>
-                  <div>June 2017 - August 2017</div>
-                </div>
-                <div class="text-italic">Software Engineer (intern)</div>
-                <div class="r-notes">
-                  <div>•  Created an image recognition application (<b>TensorFlow</b>) that allows scientists and engineers to rapidly draw scalable models and diagrams</div>
-                  <div>•  Trained a machine learning model to identify shapes drawn by users and allow them to be placed into diagrams</div>
-                  <div>•  Built a web (<b>React</b>) drawing interface for users to collaborate in real-time (<b>WebSockets, WebRTC</b>) to draw diagrams and convert hand-drawn shapes to SVGs</div>
-                </div>
-              </div>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">NASDAQ</div>
-                  <div>May 2016 - August 2016</div>
-                </div>
-                <div class="text-italic">Software Engineer (intern)</div>
-                <div class="r-notes">
-                  <div>•  Developed a web development platform (<b>JavaScript</b>) and potential new product for the Global Corporate Solutions business in the web hosting space</div>
-                  <div>•  Created a PDF parser (<b>Python</b>) to generate easy-to-read, human-friendly, interactive websites from company filings that can be shared out to shareholders</div>
-                </div>
-              </div>
-            </div>
-            <div class="r-section">
-              <div class="text-medium">LEADERSHIP AND ACTIVITIES</div>
-              <hr/>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">Theta Tau Professional Engineering Fraternity</div>
-                  <div>March 2016 - Present</div>
-                </div>
-                <div class="text-italic">President & Active Board Director</div>
-                <div class="r-notes">
-                  <div>•  Managed and led 50 diverse college students in the creation of a brand new professional engineering fraternity</div>
-                  <div>•  Governed all internal chapter operations and finances while acting as chapter president and now serve as active director of alumni association</div>
-                </div>
-              </div>
-              <div class="r-item">
-                <div class="justify-between">
-                  <div class="text-medium">MIT Varsity Swimming & Diving, MIT Varsity Water Polo</div>
-                  <div>September 2014 - June 2018</div>
-                </div>
-                <div class="text-italic">Captain</div>
-                <div class="r-notes">
-                  <div>•  Swimming: 7x All-American at Division III National Championships, 12x NEWMAC conference champion, 4x Academic All-American (sprint free and backstroke)</div>
-                  <div>•  Water Polo: Center and center defender, won a Division III Eastern Championship and placed 5th at the CWPA Eastern Championships</div>
-                </div>
-              </div>
-            </div>
-            <div class="r-section">
-              <div class="text-medium">SKILLS AND INTERESTS</div>
-              <hr/>
-              <div class="r-item">
-                <div class="text-medium">Software Engineering</div>
-                <div class="r-notes">
-                  <div>•  Programming Languages: Rust, Go, Java, Clojure, JavaScript/TypeScript, Python, C/C++, Lua, Julia, SQL</div>
-                  <div>•  Technologies:  Kubernetes, Redis, Cassandra, Kafka, Kong, Prometheus, Grafana, Airflow, Postgres, GraphQL, React, TensorFlow, Terraform, WebRTC, AWS/GCP</div>
-                </div>
-              </div>
-              <div class="r-item">
-                <div class="text-medium">Other Interests</div>
-                <div class="r-notes">
-                  <div>•  Hobbyist with music production, video/audio/photo editing using Final Cut Pro, Adobe Premiere, and Adobe After Effects</div>
-                  <div>•  Served as a prefect, senior RA, class president, and now alumni class representative at boarding school. Enjoy skiing and golf</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <foreignObject class="page-outer" id="resume-outer" x="0" y="1100" width="100%" height="200%">
+<div class="page-inner resume" xmlns="http://www.w3.org/1999/xhtml">
+    <style>
+        .resume {
+        font-size: 7px;
+        width: 550px;
+        margin: 0px auto;
+        font-family: 'Quicksand', sans-serif;
+        }
+        .resume .r-item {
+        margin-top: 6px;
+        }
+        .resume .r-section {
+        margin-top: 12px;
+        }
+        .resume a {
+        color: #0044d6;
+        }
+        .resume .justify-between {
+        display: flex;
+        justify-content: space-between
+        }
+        .resume .text-medium {
+        font-size: 9px;
+        }
+        .resume .r-notes {
+        display: flex;
+        flex-direction: column;
+        padding-left: 20px;
+        }
+        .resume .text-italic {
+        font-style: italic;
+        }
+    </style>
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:15px">Jeremy Bogle</div>
+        <div style="text-align:right">
+        <a href="mailto:jpbogle22@gmail.com">jpbogle22@gmail.com</a>
+        <a href="tel:+1-781-835-9305"><div>781-835-9305</div></a>
+        </div>
+    </div>
+    <div class="r-section">
+        <div class="text-medium">EXPERIENCE</div>
+        <hr/>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Citadel</div>
+            <div>June 2023 - June 2026</div>
+        </div>
+        <div class="text-italic">Head of Platform Engineering for EQR (Equities)</div>
+        <div class="r-notes">
+            <div>• Led <b>platform engineering</b> for a $XXB quant business—research tools, compute efficiency, ci/cd pipelines, k8s research environments, and dev experience</div>
+            <div>• Architected the hybrid cloud/on-prem <b>Kubernetes platform</b> (scaling to 5k+ cores, 100+TB) and owned the Google Cloud relationship and all GCP infra</div>
+            <div>• Promoted to team lead, owning <b>hiring and career development</b> (350+ interviews), performance reviews, and roadmap with research</div>
+            <div>• Drove <b>AI tooling strategy</b> including agent frameworks, MCP servers, async coding agents serving 200+ daily interactions and 50%+ of merged code</div>
+            <div>• Integrated <b>sandboxed research environments</b> in an interactive research cluster, enabling agentic workflows on sensitive code and data</div>
+            <div>• Built <b>low-latency trading APIs</b> (gRPC, C++, kdb+/q), delivering streaming access to real-time and historical orders and executions</div>
+        </div>
+        </div>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Cardinal Labs</div>
+            <div>December 2021 - June 2023</div>
+        </div>
+        <div class="text-italic">Co-founder & CTO</div>
+        <div class="r-notes">
+            <div>• <b>0→1 founder experience:</b> formed the team, defined the product, shipped v1 with no precedent—reached 150k+ users, 40k MAU, and 5mm+ transactions</div>
+            <div>• Led a team of 5 building smart-contracts (<b>rust</b>), SDKs (<b>serverless, typescript</b>), and apps (<b>react, typescript</b>); deployed 15+ smart contracts in production</div>
+            <div>• Partnered directly with enterprise customers and integration partners on technical sales and turning customer learnings into engineering priorities</div>
+            <div>• Built CI/CD for node deployments (<b>terraform</b>), read-optimized query index (<b>postgres, graphQL</b>), and smart contract upgrade flows with multi-party sign-off</div>
+        </div>
+        </div>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Apple</div>
+            <div>June 2018 - August 2018, August 2019 - December 2021</div>
+        </div>
+        <div class="text-italic">Senior Software Engineer</div>
+        <div class="r-notes">
+            <div>• Awarded patent for Music + Photos integration (live on every iPhone); shipped third-party Music APIs used by hundreds of partner integrations</div>
+            <div>• Architected systems and infra (<b>java, clojure</b>) on k8s serving billions of users at 100k+ QPS across Apple Music, Podcasts, TV+, and Shazam</div>
+            <div>• Owned globally distributed rate limit, authentication, and API infra (<b>Kong, Lua</b>) servicing internal, third-party, and enterprise partner integrations</div>
+            <div>• Developed global automated API diff service (<b>golang</b>) and dashboard for safer deployments with anomaly detection, rollback, and sign-off features</div>
+            <div>• Partnered with SREs on production issues, migrated core services from bare metal to edge DCs (<b>k8s, spinnaker, helm</b>), and led team infrastructure trainings</div>
+        </div>
+        </div>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Microsoft + MIT CSAIL</div>
+            <div>August 2018 - August 2019</div>
+        </div>
+        <div class="text-italic">Software Engineer / Researcher (graduate student)</div>
+        <div class="r-notes">
+            <div>• Applied financial risk theory to optimize inter-data-center traffic—directly bridging financial-domain modeling with systems research; algorithm written in <b>Julia</b></div>
+            <div>• First author on research paper (<a href="https://dl.acm.org/doi/10.1145/3341302.3342069">https://dl.acm.org/doi/10.1145/3341302.3342069</a>) published in SIGCOMM 2019 and presented in Beijing (now 80+ citations)</div>
+            <div>• Integrated real Microsoft historical WAN data into backtesting experiments, graphical and statistical analysis (<b>julia, python</b>) for the paper</div>
+        </div>
+        </div>
+    </div>
+    <div class="r-section">
+        <div class="text-medium">PUBLICATIONS</div>
+        <hr/>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">TeaVaR: Striking the Right Utilization-Availability Balance in WAN Traffic Engineering</div>
+            <div>ACM SIGCOMM 2019</div>
+        </div>
+        <div class="text-italic">First Author</div>
+        <div class="r-notes">
+            <div>• Applied financial risk theory (conditional value-at-risk) to optimize inter-data-center WAN traffic; core written in <b>Julia</b> and backtested on real Microsoft WAN data</div>
+            <div>• Presented at ACM SIGCOMM 2019 in Beijing; now 80+ citations (<a href="https://dl.acm.org/doi/10.1145/3341302.3342069">ACM Digital Library</a>, <a href="https://news.mit.edu/2019/reduce-cost-cloud-infrastructure-0819">MIT News</a>)</div>
+        </div>
+        </div>
+    </div>
+    <div class="r-section">
+        <div class="text-medium">EDUCATION</div>
+        <hr/>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Massachusetts Institute of Technology (Masters)</div>
+            <div>September 2018 - June 2019</div>
+        </div>
+        <div class="justify-between">
+            <div class="text-italic">Masters in Computer Science with a Concentration in Computer Systems</div>
+            <div>GPA: 5.0/5.0</div>
+        </div>
+        <div class="r-notes">
+            <div>• Distributed Systems, Computer Networks, Database Systems, Systems Security, Advanced Algorithms, Machine Learning, Economics</div>
+            <div>• First author on published research applying financial risk theory to optimize network traffic (<a href="https://news.mit.edu/2019/reduce-cost-cloud-infrastructure-0819">https://news.mit.edu/2019/reduce-cost-cloud-infrastructure-0819</a>)</div>
+        </div>
+        </div>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Massachusetts Institute of Technology (Undergrad)</div>
+            <div>September 2014 - June 2018</div>
+        </div>
+        <div class="justify-between">
+            <div class="text-italic">B.S. in Electrical Engineering and Computer Science with a Minor in Economics</div>
+            <div>GPA: 4.4/5.0</div>
+        </div>
+    </div>
+    <div class="r-section">
+        <div class="text-medium">LEADERSHIP AND ACTIVITIES</div>
+        <hr/>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">Theta Tau Professional Engineering Fraternity</div>
+            <div>March 2016 - Present</div>
+        </div>
+        <div class="text-italic">President & Active Board Director</div>
+        <div class="r-notes">
+            <div>• Managed and led 50 diverse college students in the creation of a brand new professional engineering fraternity</div>
+            <div>• Governed all internal chapter operations and finances while acting as chapter president and now serve as active director of alumni association</div>
+        </div>
+        </div>
+        <div class="r-item">
+        <div class="justify-between">
+            <div class="text-medium">MIT Varsity Swimming & Diving, MIT Varsity Water Polo</div>
+            <div>September 2014 - June 2018</div>
+        </div>
+        <div class="text-italic">Captain</div>
+        <div class="r-notes">
+            <div>• Swimming: 7x All-American at Division III National Championships, 12x NEWMAC conference champion, 4x Academic All-American (sprint free and backstroke)</div>
+            <div>• Water Polo: Center and center defender, won a Division III Eastern Championships and placed 5th at the CWPA Eastern Championships</div>
+        </div>
+        </div>
+    </div>
+    <div class="r-section">
+        <div class="text-medium">SKILLS AND INTERESTS</div>
+        <hr/>
+        <div class="r-item">
+        <div class="text-medium">Software Engineering</div>
+        <div class="r-notes">
+            <div>• Programming Languages: Python, Go, Rust, Typescript, C/C++, Java, Lua, Clojure, Julia, SQL</div>
+            <div>• Technologies: Linux/UNIX, Kubernetes, Redis, Cassandra, Kafka, Kong, Prometheus, Grafana, Airflow, Postgres, GraphQL, React, Terraform, webRTC, AWS/GCP</div>
+        </div>
+        </div>
+        <div class="r-item">
+        <div class="text-medium">Other Interests</div>
+        <div class="r-notes">
+            <div>• Served as a prefect, senior RA, class president, and now alumni class representative at boarding school. </div>
+            <div>• Enjoys skiing, golf and music production</div>
+        </div>
+        </div>
+    </div>
+</div>
         </foreignObject>
       </g>
     </svg>
@@ -750,40 +587,28 @@ const pages = [
       y: 0,
     },
     {
+      id: "about",
+      title: "About",
+      x: 1000,
+      y: -600,
+    },
+    {
       id: "research",
       title: "Research",
-      x: -1200,
-      y: -700,
-    },
-    {
-      id: "interests",
-      title: "Interests",
-      x: 1200,
-      y: -700,
-    },
-    {
-      id: "projects",
-      title: "Projects",
-      x: 1200,
-      y: 700,
+      x: -1000,
+      y: -600,
     },
     {
       id: "resume",
       title: "Resume",
-      x: -1200,
-      y: 700,
-    },
-    {
-      id: "skills",
-      title: "Skills",
       x: 0,
-      y: 1400,
+      y: 1100,
     },
   ];
 
 let grabbingDisabled = false;
 const zoom = d3.zoom()
-  .scaleExtent([.3, 2]) 
+  .scaleExtent([.25, 2])
   .on("start", () => {
     if (!grabbingDisabled) {
       d3.select('#svg-outer').attr("style", "cursor: grabbing")
@@ -801,43 +626,38 @@ const zoom = d3.zoom()
 
 const birdsEyeTransform = d3.zoomIdentity
     .translate(300,250)
-    .scale(.3);
-
-const centerTransform = d3.zoomIdentity
-    .translate(0,0)
-    .scale(1);
+    .scale(.25);
 
 const svg = d3.select("#svg-outer")
               .on("click", stopped);
 
-var initialTransform = centerTransform;
-var hash = "#home"
+const retiredPages = ["#skills", "#interests", "#projects"];
+var hash = retiredPages.includes(window.location.hash) ? "#about" : window.location.hash;
+if (!pages.some(page => `#${page.id}` === hash)) hash = "#home";
 
 initLinks();
 
-if (window.location.hash) {
-  hash = window.location.hash;
-  let bounds = d3.select(hash).attr("bounds").split(",").map(parseFloat);
-  initialTransform = getTransformFromBounds(bounds);
+if (window.location.hash && window.location.hash !== hash) {
+  window.history.replaceState(null, "", hash);
 }
-
 svg.call(zoom) // delete this line to disable free zooming
-   .call(zoom.transform, initialTransform)
+   .call(zoom.transform, getTransformForPage(hash.slice(1)))
    .on("wheel.zoom", null);
 
-var active = d3.select(hash).classed("active", true);
+var active = d3.select(`#menu ${hash}`).classed("active", true);
+
+document.fonts.ready.then(centerActivePage);
+window.addEventListener("resize", centerActivePage);
 
 function initLinks() {
   const menu = d3.select("#menu");
-  pages.forEach((link, i) => {      
-    let y = window.matchMedia('only screen and (min-device-width : 320px) and (max-device-width : 480px)').matches && link.id != 'home' ? link.y - 100 : link.y;
+  pages.forEach(link => {
     d3.select(`#${link.id}-outer`)
       .attr("x", link.x)
-      .attr("y", y)
+      .attr("y", link.y)
     menu.append("a")
         .attr("href", `#${link.id}`)
       .append("li")
-        .attr("bounds", `${link.x},${link.y + parseFloat(svg.style('height').slice(0, -2))},${link.x + parseFloat(svg.style('width').slice(0, -2))},${link.y}`)
         .attr("id", link.id)
         .html(link.title)
         .on("click", clicked);
@@ -850,19 +670,33 @@ function initLinks() {
     .attr("for", "switch")
 }
 
-function getTransformFromBounds(bounds) {
-  const dx = bounds[2] - bounds[0];
-  const dy = bounds[1] - bounds[3];
-  const x = (bounds[0] + bounds[2]) / 2;
-  const y = (bounds[3] + bounds[1]) / 2;
-  const width = svg.style('width').slice(0, -2);
-  const height = svg.style('height').slice(0, -2);
-  const scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height)));
-  const translate = [width / 2 - scale * x, height / 2 - scale * y];
-  const transform = d3.zoomIdentity
-    .translate(translate[0], translate[1])
-    .scale(scale);
-  return transform;
+function getTransformForPage(id) {
+  const content = document.querySelector(`#${id}-outer .page-inner`);
+  const rects = Array.from(content.children)
+    .filter(element => element.getClientRects().length)
+    .map(element => element.getBoundingClientRect());
+  const left = Math.min(...rects.map(rect => rect.left));
+  const right = Math.max(...rects.map(rect => rect.right));
+  const top = Math.min(...rects.map(rect => rect.top));
+  const bottom = Math.max(...rects.map(rect => rect.bottom));
+
+  // Convert the content's screen position back into canvas coordinates so
+  // navigation works from any pan or zoom level, including the overview.
+  const screenToCanvas = document.getElementById("view-box").getScreenCTM().inverse();
+  const center = new DOMPoint((left + right) / 2, (top + bottom) / 2)
+    .matrixTransform(screenToCanvas);
+  const viewport = svg.node().viewBox.baseVal;
+
+  return d3.zoomIdentity.translate(
+    viewport.x + viewport.width / 2 - center.x,
+    viewport.y + viewport.height / 2 - center.y
+  );
+}
+
+function centerActivePage() {
+  if (active.node()) {
+    svg.interrupt().call(zoom.transform, getTransformForPage(active.attr("id")));
+  }
 }
 
 function clicked(d) {
@@ -871,10 +705,9 @@ function clicked(d) {
   active.classed("active", false);
   active = d3.select(this).classed("active", true);
   // active.append("div").attr("id", "arrow").html("&#9758; ").lower();
-  let bounds = d3.select(this).attr("bounds").split(",").map(parseFloat);
   svg.transition()
       .duration(1500)
-      .call(zoom.transform, getTransformFromBounds(bounds));
+      .call(zoom.transform, getTransformForPage(this.id));
 
   grabbingDisabled = true;
   document.getElementById("hamburger").click();
@@ -898,8 +731,6 @@ function stopped() {
 function toggleDarkMode() {
    var element = document.body;
    element.classList.toggle("dark-mode");
-   d3.select("#up-logo").attr("src", "img/upphoto.png");
-   d3.select("#up-logo").attr("style", "height:80%; margin-left: 5px");
 }
 
 d3.select("#zoom-in").on("click", function() {
