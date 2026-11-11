@@ -46,7 +46,7 @@ body {
 }
 
 .page-inner {
-  padding-top: 40px;
+  padding: 40px;
 }
 
 svg {
@@ -98,6 +98,18 @@ svg {
 .list .list-item div p {
   margin-block-start: .6em;
   margin-block-end: .6em;
+}
+
+/* ------------------ Reading Pages ------------------ */
+
+:is(#research-outer, #projects-outer, #interests-outer) .page-inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 /* ------------------ Nav ------------------ */
@@ -495,7 +507,7 @@ svg {
             <div class="header">
               <div>Programming Languages</div>
             </div>
-            <div class="description">I've interacted with a variety of systems and programming languages and am aware of many trade-offs that exist. Here are some thoughts and tidbits about when I've worked with each of these languages.</div>
+            <div class="description">Some notes on the languages I've used, the systems I've built with them, and the trade-offs I've encountered.</div>
             <div class="table">
               <div class="row row-header">
                 <div class="first">Name</div>
@@ -503,39 +515,39 @@ svg {
               </div>
               <div class="row">
                 <div class="first">TypeScript</div>
-                <div class="second">Massive fan of TypeScript. While it has quirks, the typing system is incredibly flexible and expressive and allows for functional programming to create things very quickly. Mostly used client-side on web projects, or sometimes for serverless Node.js APIs. Would not use for large-scale backends</div>
+                <div class="second">Massive fan of TypeScript's flexible, expressive type system. I've used it for React apps, SDKs, and serverless Node.js APIs.</div>
               </div>
               <div class="row">
                 <div class="first">Java</div>
-                <div class="second">Became intimately familiar using Java at scale during my time as an engineer at Apple. Having seen massive codebases, I see large value in having something as robust as Java and being able to debug in common ways with thread and heap dumps and having easy multi-threading. However, many issues arose from the garbage collection and additional overhead of the JVM and I would be excited to see a similarly sized system in action with Go or Rust</div>
+                <div class="second">Built and operated Java services at scale at Apple. I value its debugging tools and concurrency support, while staying mindful of garbage collection and JVM overhead.</div>
               </div>
               <div class="row">
                 <div class="first">Rust</div>
-                <div class="second">Quickly gaining Rust experience and consistently being impressed by features of the language that allow for safe, performant code. Written smart contracts and high-performance multi-threaded code reading and writing to Postgres in Rust.</div>
+                <div class="second">Built production smart contracts and a blockchain data index using Rust and Postgres at Cardinal. I like its focus on safe, performant code, especially when working with concurrency.</div>
               </div>
               <div class="row">
                 <div class="first">Go</div>
-                <div class="second">Built a web proxy from scratch in Go to handle mirroring HTTP requests to multiple upstreams, comparing results and storing in a Cassandra database. Also used for a WebSockets project. Very handy networking libraries, and I'm also a fan of the interface and typing system</div>
+                <div class="second">Built an HTTP proxy that mirrored requests, compared responses, and stored results in Cassandra, plus a backend for synchronized music playback. I'm a fan of Go's networking libraries and interfaces.</div>
               </div>
               <div class="row">
                 <div class="first">Python</div>
-                <div class="second">Used for scripting, data science libraries including NumPy, pandas and used with TensorFlow for any ML projects. I have also used Django for web services. Wary about Python without types for production use across multiple teams</div>
+                <div class="second">Used for scripting, data analysis, machine learning, and Django web services. Type annotations matter to me when production code is shared across teams.</div>
               </div>
               <div class="row">
                 <div class="first">Clojure</div>
-                <div class="second">Used extensively during my time at Apple as a JVM-compatible functional programming language. It was nice being able to leverage all Java types but be expressive in the query API which had a lot of data manipulation. Also leveraged and experimented with thread pooling and async programming with libraries like core.async and manifold</div>
+                <div class="second">Used extensively for Apple's query APIs, including data transformation and asynchronous processing. I liked combining functional programming with access to the Java ecosystem.</div>
               </div>
               <div class="row">
                 <div class="first">Julia</div>
-                <div class="second">Great for data science and optimizations. Used during my research work writing linear optimization programs and was able to implement objective functions and conditions and use mathematical solvers (Gurobi) very easily.</div>
+                <div class="second">Used with Gurobi to implement the TEAVAR routing optimization. I found it a natural fit for expressing mathematical objectives and constraints.</div>
               </div>
               <div class="row">
                 <div class="first">Scala</div>
-                <div class="second">Used when writing load tests using Gatling. No real opinions or formative experiences yet</div>
+                <div class="second">Used for load testing with Gatling.</div>
               </div>
               <div class="row">
                 <div class="first">C/C++</div>
-                <div class="second">Used moderately for lower-level embedded systems and university classwork. Familiar with memory management and parallel computing library Cilk. Would prefer starting with Rust for newer projects at this stage</div>
+                <div class="second">Used C++ for low-latency trading APIs at Citadel and C/C++ for embedded systems and parallel computing. I'd generally reach for Rust when starting a new systems project.</div>
               </div>
             </div>
           </div>
