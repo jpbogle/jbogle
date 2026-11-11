@@ -51,71 +51,97 @@ figcaption span { display: block; color: var(--muted); font-size: 10px; margin-t
 figure img { display: block; width: 100%; height: auto; }
 .note { color: var(--muted); font-size: 12px; line-height: 1.6; }
 .samples { border-top: 1px solid var(--rule-strong); padding-top: 24px; margin-top: 40px; }
-.tasks { border: 1px solid var(--rule); }
-.tasks thead th { padding: 9px 12px; background: var(--head); color: var(--ink); font: 10px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
-.tasks thead .model { font-family: system-ui, sans-serif; font-size: 12px; text-transform: none; letter-spacing: 0; }
-.tasks th,.tasks td { padding: 12px; border-bottom: 1px solid var(--rule); }
-.tasks tbody th { color: var(--ink); overflow-wrap: anywhere; width: 30%; font-weight: 500; }
+.tasks-scroll { overflow-x: auto; }
+.tasks { border: 1px solid var(--rule); font-size: 13.5px; }
+.tasks thead th { padding: 8px 14px; background: var(--head); color: var(--ink); font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+.metric-heading { display: inline-flex; align-items: center; gap: 6px; }
+.tasks .model-mark { width: 12px; height: 12px; }
+.tasks th,.tasks td { padding: 8px 14px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.tasks tr > :nth-child(2),.tasks tr > :nth-child(5) { border-left: 1px solid var(--rule); }
+.tasks tbody th { color: var(--ink); min-width: 260px; font-weight: 500; }
 .tasks tbody tr:hover { background: var(--panel); }
-.tasks .trials { width: 25%; }
-.number { white-space: nowrap; font: 12px var(--mono); }
-.trial-chips { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px 6px; max-width: 228px; }
-.trial { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.trial > span { padding: 2px 5px; border: 1px solid; border-radius: 3px; font: 600 10px/1.5 var(--mono); letter-spacing: .04em; }
-.trial small { color: var(--muted); font: 9px/1.2 var(--mono); }
+.tasks td.trials { padding-block: 10px 6px; }
+.number { white-space: nowrap; font: 12.5px var(--mono); }
+.number.leading { font-weight: 700; }
+.trial-chips { display: flex; flex-wrap: nowrap; gap: 6px 8px; }
+.trial { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.trial > span { min-width: 44px; padding: 2px 6px; border: 1px solid; border-radius: 3px; font: 600 10.5px/1.5 var(--mono); letter-spacing: .06em; text-align: center; }
+.trial small { color: var(--muted); font: 9.5px/1.2 var(--mono); }
 .trial.pass > span { background: #213325; color: #9fd0a8; border-color: #35523b; }
 .trial.fail > span { background: #3a2420; color: #eaa197; border-color: #5a3530; }
-@media (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
   .columns { grid-template-columns: 1fr; }
   aside { border-left: 0; border-top: 1px solid var(--rule); padding: 28px 0 0; }
   .charts { gap: 32px; }
   .tasks th,.tasks td { padding: 10px 8px; }
-  .tasks tbody th { width: 26%; }
 }
-@media (max-width: 760px) {
+@media screen and (max-width: 760px) {
   main { padding: 32px 20px 40px; }
   .tasks,.tasks tbody { display: block; border: 0; }
   .tasks thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .tasks tbody tr { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); margin-bottom: 16px; }
-  .tasks tbody th { width: auto; grid-column: 1 / -1; background: var(--head); padding: 12px 14px; }
+  .tasks tbody th { width: auto; min-width: 0; grid-column: 1 / -1; background: var(--head); padding: 12px 14px; }
+  .tasks tr > :nth-child(2),.tasks tr > :nth-child(5) { border-left: 0; }
   .tasks td { width: auto; padding: 12px 14px; border: 0; }
   .tasks td::before { content: attr(data-label); display: block; margin-bottom: 8px; font: 11px/1.5 system-ui, sans-serif; color: var(--muted); }
   .tasks td.trials { width: auto; grid-column: 1 / -1; border-bottom: 1px solid var(--rule); }
-  .trial-chips { grid-template-columns: repeat(8,minmax(0,1fr)); max-width: 480px; }
+  .trial-chips { display: grid; grid-template-columns: repeat(4,max-content); }
 }
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .charts { grid-template-columns: 1fr; gap: 24px; }
   .model { gap: 5px; }
   .results { font-size: 12px; }
   .results td:not(:first-child),.results th:not(:first-child) { padding-left: 8px; }
-  .trial-chips { grid-template-columns: repeat(4,minmax(0,1fr)); max-width: 240px; }
 }
 @media print {
-  @page { size: A4; margin: 15mm; }
-  body { print-color-adjust: exact; -webkit-print-color-adjust: exact; font-size: 10pt; }
-  main { max-width: none; padding: 0; }
-  .columns { display: block; }
+  @page { size: A4 portrait; margin: 14mm; background: #05070c; }
+  html,body { margin: 0; background: var(--paper); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { font-size: 12px; line-height: 18px; }
+  main { width: auto; max-width: none; margin: 0; padding: 0; }
+  header { padding-bottom: 12px; }
+  h1 { font-size: 24px; }
+  h2 { margin-bottom: 8px; font-size: 15px; line-height: 20px; }
+  p { margin-bottom: 12px; orphans: 3; widows: 3; }
+  section + section { margin-top: 20px; }
+  .columns { display: block; margin-top: 16px; }
   aside,.samples { break-before: page; border: 0; padding: 0; margin-top: 0; }
-  .charts { grid-template-columns: 1fr 1fr; }
-  pre { font-size: 8pt; }
-  h2 { break-after: avoid; }
+  aside > section { break-inside: avoid; }
+  .charts { grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0 12px; }
+  figcaption { margin-bottom: 6px; font-size: 11px; line-height: 16px; }
+  figcaption span { font-size: 9px; line-height: 13px; }
+  .note { font-size: 11px; line-height: 16px; }
+  .results,.coverage { font-size: 11px; line-height: 16px; }
+  .results th,.results td,.coverage th,.coverage td { padding-top: 5px; padding-bottom: 5px; }
+  .results th,.coverage thead th { font-size: 10px; }
+  .results td:not(:first-child) { font-size: 10px; }
+  pre { margin: 8px 0 16px; padding: 12px; border-radius: 0; font-size: 11px; line-height: 16px; orphans: 3; widows: 3; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  h1,h2,thead { break-after: avoid; }
+  #creation > p { break-after: avoid; }
   figure,tr { break-inside: avoid; }
-  .tasks { display: table; border: 1px solid var(--rule); font-size: 8pt; }
-  .tasks thead { display: table-header-group; position: static; width: auto; height: auto; clip-path: none; }
+  .tasks-scroll { overflow: visible; }
+  .tasks { display: table; table-layout: fixed; width: 100%; border: 1px solid var(--rule); font-size: 11px; line-height: 16px; }
+  .tasks col:nth-child(1) { width: 34%; }
+  .tasks col:nth-child(2) { width: 24%; }
+  .tasks col:nth-child(3),.tasks col:nth-child(5) { width: 10%; }
+  .tasks col:nth-child(4),.tasks col:nth-child(6) { width: 11%; }
+  .tasks thead { display: table-header-group; position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
   .tasks tbody { display: table-row-group; }
   .tasks tbody tr { display: table-row; }
-  .tasks tbody th,.tasks td,.tasks td.trials { display: table-cell; width: auto; padding: 7px 5px; background: transparent; border-bottom: 1px solid var(--rule); }
+  .tasks tbody th,.tasks td,.tasks td.trials { display: table-cell; width: auto; min-width: 0; padding: 8px 6px; background: transparent; border-bottom: 1px solid var(--rule); }
+  .tasks tbody th { font-size: 10px; overflow-wrap: normal; }
   .tasks td::before { display: none; }
-  .tasks thead th { padding: 7px 5px; }
-  .number { font-size: 8pt; }
-  .trial-chips { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px 3px; }
-  .trial > span { font-size: 7px; padding: 1px 3px; }
-  .trial small { font-size: 7px; }
+  .tasks thead th { padding: 8px 6px; font-size: 9px; letter-spacing: .04em; white-space: normal; }
+  .screen-only { display: none; }
+  .tasks .model-mark { width: 12px; height: 12px; }
+  .number { font-size: 10px; }
+  .trial-chips { display: grid; grid-template-columns: repeat(4,max-content); gap: 4px 6px; }
+  .trial > span { min-width: 0; font-size: 8px; padding: 1px 4px; }
+  .trial small { font-size: 8px; }
 }
 
 /* Task instructions are embedded below, so opening a sample needs no network. */
-.task-open { border: 0; padding: 0; background: none; color: inherit; font: inherit; text-align: left; overflow-wrap: anywhere; cursor: pointer; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 4px; }
-.task-open:hover { text-decoration-color: var(--ink); }
+.task-open { display: block; border: 0; padding: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.task-open:hover { text-decoration: underline; text-underline-offset: 3px; }
 .task-open:focus-visible,.dialog-close:focus-visible { outline: 2px solid var(--astra); outline-offset: 5px; border-radius: 2px; }
 .tasks tbody tr { cursor: pointer; }
 .samples-hint { color: var(--muted); font-size: 12px; margin-top: -5px; }
@@ -130,14 +156,14 @@ body.dialog-open { overflow: hidden; }
 .dialog-body { padding: 24px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
 .dialog-body h3 { margin: 0 0 12px; color: var(--muted); font: 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .dialog-body pre { margin-bottom: 0; }
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .task-dialog { max-height: 90dvh; }
   .task-dialog header { padding: 12px 16px; gap: 10px; }
   .task-dialog h2 { font-size: 17px; }
   .dialog-body { padding: 20px 16px; }
 }
 @media print {
-  .task-dialog,.samples-hint { display: none !important; }
+  .task-dialog,.task-dialog::backdrop,.samples-hint { display: none !important; }
   .task-open { text-decoration: none; }
   body.dialog-open { overflow: visible; }
 }
@@ -197,50 +223,58 @@ to hold for every way the app changes what is allocated or what...</code></pre>
     <section class="samples" aria-labelledby="samples">
       <h2 id="samples">Sample Tasks</h2>
       <p class="samples-hint">Select a task to view its description and instructions.</p>
+      <div class="tasks-scroll">
       <table class="tasks">
+        <colgroup><col><col><col><col><col><col></colgroup>
         <thead>
-          <tr><th scope="col" rowspan="2">Task</th><th scope="colgroup" colspan="3"><span class="model astra"><svg class="model-mark" viewBox="1.68 1.75 16.65 16.5" fill="currentColor" aria-hidden="true"><path d="M11.248 18.25q-.825 0-1.568-.314a4.3 4.3 0 0 1-1.32-.874 4 4 0 0 1-1.304.214 4 4 0 0 1-2.046-.544 4.27 4.27 0 0 1-1.518-1.485 4 4 0 0 1-.56-2.095q0-.48.131-1.04A4.4 4.4 0 0 1 2.04 10.71a4.07 4.07 0 0 1 .017-3.4 4.2 4.2 0 0 1 1.056-1.418 3.8 3.8 0 0 1 1.6-.842 3.9 3.9 0 0 1 .76-1.683q.593-.759 1.451-1.188a4.04 4.04 0 0 1 1.832-.429q.825 0 1.567.313.742.314 1.32.875a4 4 0 0 1 1.304-.215q1.106 0 2.046.545a4.14 4.14 0 0 1 1.501 1.485q.578.941.578 2.095 0 .48-.132 1.04.66.61 1.023 1.419.363.792.363 1.666 0 .892-.38 1.717a4.3 4.3 0 0 1-1.072 1.435 3.8 3.8 0 0 1-1.584.825 3.8 3.8 0 0 1-.775 1.683 4.06 4.06 0 0 1-1.436 1.188 4.04 4.04 0 0 1-1.832.429m-4.076-2.062q.825 0 1.435-.347l3.103-1.782a.36.36 0 0 0 .164-.313v-1.42L7.881 14.62a.67.67 0 0 1-.726 0l-3.118-1.798a.5.5 0 0 1-.017.115v.198q0 .841.396 1.551.413.693 1.139 1.089a3.2 3.2 0 0 0 1.617.412m.165-2.69a.4.4 0 0 0 .181.05q.083 0 .165-.05l1.238-.71-3.977-2.31a.7.7 0 0 1-.363-.643v-3.58q-.825.362-1.32 1.122a2.9 2.9 0 0 0-.495 1.65q0 .809.413 1.55.412.743 1.072 1.123zm3.91 3.663q.875 0 1.585-.396a2.96 2.96 0 0 0 1.534-2.64v-3.564a.32.32 0 0 0-.165-.297l-1.254-.726v4.604a.7.7 0 0 1-.363.643l-3.119 1.799a3 3 0 0 0 1.783.577m.627-6.039V8.878L10.01 7.822 8.129 8.878v2.244l1.881 1.056zM7.057 5.859a.7.7 0 0 1 .363-.644l3.119-1.798a3 3 0 0 0-1.782-.578q-.874 0-1.584.396A2.96 2.96 0 0 0 6.05 4.324a3.07 3.07 0 0 0-.396 1.551v3.547q0 .199.165.314l1.237.726zm8.383 7.887q.825-.364 1.303-1.123.495-.758.495-1.65a3.15 3.15 0 0 0-.412-1.55q-.413-.743-1.073-1.123l-3.086-1.782q-.099-.065-.181-.049a.3.3 0 0 0-.165.05l-1.238.692 3.993 2.327a.6.6 0 0 1 .264.264.64.64 0 0 1 .1.363zm-3.317-8.382a.63.63 0 0 1 .726 0l3.135 1.831v-.297q0-.792-.396-1.501a2.86 2.86 0 0 0-1.105-1.155q-.71-.43-1.65-.43-.825 0-1.436.347L8.294 5.941a.36.36 0 0 0-.165.314v1.418z"/></svg>GPT 6 Astra</span></th><th scope="colgroup" colspan="2"><span class="model opus"><svg class="model-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg>Claude Opus 5.5</span></th></tr>
-          <tr><th scope="col">Trials</th><th scope="col">Passed</th><th scope="col">Runtime</th><th scope="col">Passed</th><th scope="col">Runtime</th></tr>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col" aria-label="GPT 6 Astra trials" title="GPT 6 Astra"><span class="metric-heading"><span>Trials</span><svg class="model-mark astra" viewBox="1.68 1.75 16.65 16.5" fill="currentColor" aria-hidden="true"><path d="M11.248 18.25q-.825 0-1.568-.314a4.3 4.3 0 0 1-1.32-.874 4 4 0 0 1-1.304.214 4 4 0 0 1-2.046-.544 4.27 4.27 0 0 1-1.518-1.485 4 4 0 0 1-.56-2.095q0-.48.131-1.04A4.4 4.4 0 0 1 2.04 10.71a4.07 4.07 0 0 1 .017-3.4 4.2 4.2 0 0 1 1.056-1.418 3.8 3.8 0 0 1 1.6-.842 3.9 3.9 0 0 1 .76-1.683q.593-.759 1.451-1.188a4.04 4.04 0 0 1 1.832-.429q.825 0 1.567.313.742.314 1.32.875a4 4 0 0 1 1.304-.215q1.106 0 2.046.545a4.14 4.14 0 0 1 1.501 1.485q.578.941.578 2.095 0 .48-.132 1.04.66.61 1.023 1.419.363.792.363 1.666 0 .892-.38 1.717a4.3 4.3 0 0 1-1.072 1.435 3.8 3.8 0 0 1-1.584.825 3.8 3.8 0 0 1-.775 1.683 4.06 4.06 0 0 1-1.436 1.188 4.04 4.04 0 0 1-1.832.429m-4.076-2.062q.825 0 1.435-.347l3.103-1.782a.36.36 0 0 0 .164-.313v-1.42L7.881 14.62a.67.67 0 0 1-.726 0l-3.118-1.798a.5.5 0 0 1-.017.115v.198q0 .841.396 1.551.413.693 1.139 1.089a3.2 3.2 0 0 0 1.617.412m.165-2.69a.4.4 0 0 0 .181.05q.083 0 .165-.05l1.238-.71-3.977-2.31a.7.7 0 0 1-.363-.643v-3.58q-.825.362-1.32 1.122a2.9 2.9 0 0 0-.495 1.65q0 .809.413 1.55.412.743 1.072 1.123zm3.91 3.663q.875 0 1.585-.396a2.96 2.96 0 0 0 1.534-2.64v-3.564a.32.32 0 0 0-.165-.297l-1.254-.726v4.604a.7.7 0 0 1-.363.643l-3.119 1.799a3 3 0 0 0 1.783.577m.627-6.039V8.878L10.01 7.822 8.129 8.878v2.244l1.881 1.056zM7.057 5.859a.7.7 0 0 1 .363-.644l3.119-1.798a3 3 0 0 0-1.782-.578q-.874 0-1.584.396A2.96 2.96 0 0 0 6.05 4.324a3.07 3.07 0 0 0-.396 1.551v3.547q0 .199.165.314l1.237.726zm8.383 7.887q.825-.364 1.303-1.123.495-.758.495-1.65a3.15 3.15 0 0 0-.412-1.55q-.413-.743-1.073-1.123l-3.086-1.782q-.099-.065-.181-.049a.3.3 0 0 0-.165.05l-1.238.692 3.993 2.327a.6.6 0 0 1 .264.264.64.64 0 0 1 .1.363zm-3.317-8.382a.63.63 0 0 1 .726 0l3.135 1.831v-.297q0-.792-.396-1.501a2.86 2.86 0 0 0-1.105-1.155q-.71-.43-1.65-.43-.825 0-1.436.347L8.294 5.941a.36.36 0 0 0-.165.314v1.418z"/></svg></span></th>
+            <th scope="col" aria-label="GPT 6 Astra passed" title="GPT 6 Astra"><span class="metric-heading"><span>Passed</span><svg class="model-mark astra" viewBox="1.68 1.75 16.65 16.5" fill="currentColor" aria-hidden="true"><path d="M11.248 18.25q-.825 0-1.568-.314a4.3 4.3 0 0 1-1.32-.874 4 4 0 0 1-1.304.214 4 4 0 0 1-2.046-.544 4.27 4.27 0 0 1-1.518-1.485 4 4 0 0 1-.56-2.095q0-.48.131-1.04A4.4 4.4 0 0 1 2.04 10.71a4.07 4.07 0 0 1 .017-3.4 4.2 4.2 0 0 1 1.056-1.418 3.8 3.8 0 0 1 1.6-.842 3.9 3.9 0 0 1 .76-1.683q.593-.759 1.451-1.188a4.04 4.04 0 0 1 1.832-.429q.825 0 1.567.313.742.314 1.32.875a4 4 0 0 1 1.304-.215q1.106 0 2.046.545a4.14 4.14 0 0 1 1.501 1.485q.578.941.578 2.095 0 .48-.132 1.04.66.61 1.023 1.419.363.792.363 1.666 0 .892-.38 1.717a4.3 4.3 0 0 1-1.072 1.435 3.8 3.8 0 0 1-1.584.825 3.8 3.8 0 0 1-.775 1.683 4.06 4.06 0 0 1-1.436 1.188 4.04 4.04 0 0 1-1.832.429m-4.076-2.062q.825 0 1.435-.347l3.103-1.782a.36.36 0 0 0 .164-.313v-1.42L7.881 14.62a.67.67 0 0 1-.726 0l-3.118-1.798a.5.5 0 0 1-.017.115v.198q0 .841.396 1.551.413.693 1.139 1.089a3.2 3.2 0 0 0 1.617.412m.165-2.69a.4.4 0 0 0 .181.05q.083 0 .165-.05l1.238-.71-3.977-2.31a.7.7 0 0 1-.363-.643v-3.58q-.825.362-1.32 1.122a2.9 2.9 0 0 0-.495 1.65q0 .809.413 1.55.412.743 1.072 1.123zm3.91 3.663q.875 0 1.585-.396a2.96 2.96 0 0 0 1.534-2.64v-3.564a.32.32 0 0 0-.165-.297l-1.254-.726v4.604a.7.7 0 0 1-.363.643l-3.119 1.799a3 3 0 0 0 1.783.577m.627-6.039V8.878L10.01 7.822 8.129 8.878v2.244l1.881 1.056zM7.057 5.859a.7.7 0 0 1 .363-.644l3.119-1.798a3 3 0 0 0-1.782-.578q-.874 0-1.584.396A2.96 2.96 0 0 0 6.05 4.324a3.07 3.07 0 0 0-.396 1.551v3.547q0 .199.165.314l1.237.726zm8.383 7.887q.825-.364 1.303-1.123.495-.758.495-1.65a3.15 3.15 0 0 0-.412-1.55q-.413-.743-1.073-1.123l-3.086-1.782q-.099-.065-.181-.049a.3.3 0 0 0-.165.05l-1.238.692 3.993 2.327a.6.6 0 0 1 .264.264.64.64 0 0 1 .1.363zm-3.317-8.382a.63.63 0 0 1 .726 0l3.135 1.831v-.297q0-.792-.396-1.501a2.86 2.86 0 0 0-1.105-1.155q-.71-.43-1.65-.43-.825 0-1.436.347L8.294 5.941a.36.36 0 0 0-.165.314v1.418z"/></svg></span></th>
+            <th scope="col" aria-label="GPT 6 Astra median runtime" title="GPT 6 Astra"><span class="metric-heading"><span><span class="screen-only">Median </span>runtime</span><svg class="model-mark astra" viewBox="1.68 1.75 16.65 16.5" fill="currentColor" aria-hidden="true"><path d="M11.248 18.25q-.825 0-1.568-.314a4.3 4.3 0 0 1-1.32-.874 4 4 0 0 1-1.304.214 4 4 0 0 1-2.046-.544 4.27 4.27 0 0 1-1.518-1.485 4 4 0 0 1-.56-2.095q0-.48.131-1.04A4.4 4.4 0 0 1 2.04 10.71a4.07 4.07 0 0 1 .017-3.4 4.2 4.2 0 0 1 1.056-1.418 3.8 3.8 0 0 1 1.6-.842 3.9 3.9 0 0 1 .76-1.683q.593-.759 1.451-1.188a4.04 4.04 0 0 1 1.832-.429q.825 0 1.567.313.742.314 1.32.875a4 4 0 0 1 1.304-.215q1.106 0 2.046.545a4.14 4.14 0 0 1 1.501 1.485q.578.941.578 2.095 0 .48-.132 1.04.66.61 1.023 1.419.363.792.363 1.666 0 .892-.38 1.717a4.3 4.3 0 0 1-1.072 1.435 3.8 3.8 0 0 1-1.584.825 3.8 3.8 0 0 1-.775 1.683 4.06 4.06 0 0 1-1.436 1.188 4.04 4.04 0 0 1-1.832.429m-4.076-2.062q.825 0 1.435-.347l3.103-1.782a.36.36 0 0 0 .164-.313v-1.42L7.881 14.62a.67.67 0 0 1-.726 0l-3.118-1.798a.5.5 0 0 1-.017.115v.198q0 .841.396 1.551.413.693 1.139 1.089a3.2 3.2 0 0 0 1.617.412m.165-2.69a.4.4 0 0 0 .181.05q.083 0 .165-.05l1.238-.71-3.977-2.31a.7.7 0 0 1-.363-.643v-3.58q-.825.362-1.32 1.122a2.9 2.9 0 0 0-.495 1.65q0 .809.413 1.55.412.743 1.072 1.123zm3.91 3.663q.875 0 1.585-.396a2.96 2.96 0 0 0 1.534-2.64v-3.564a.32.32 0 0 0-.165-.297l-1.254-.726v4.604a.7.7 0 0 1-.363.643l-3.119 1.799a3 3 0 0 0 1.783.577m.627-6.039V8.878L10.01 7.822 8.129 8.878v2.244l1.881 1.056zM7.057 5.859a.7.7 0 0 1 .363-.644l3.119-1.798a3 3 0 0 0-1.782-.578q-.874 0-1.584.396A2.96 2.96 0 0 0 6.05 4.324a3.07 3.07 0 0 0-.396 1.551v3.547q0 .199.165.314l1.237.726zm8.383 7.887q.825-.364 1.303-1.123.495-.758.495-1.65a3.15 3.15 0 0 0-.412-1.55q-.413-.743-1.073-1.123l-3.086-1.782q-.099-.065-.181-.049a.3.3 0 0 0-.165.05l-1.238.692 3.993 2.327a.6.6 0 0 1 .264.264.64.64 0 0 1 .1.363zm-3.317-8.382a.63.63 0 0 1 .726 0l3.135 1.831v-.297q0-.792-.396-1.501a2.86 2.86 0 0 0-1.105-1.155q-.71-.43-1.65-.43-.825 0-1.436.347L8.294 5.941a.36.36 0 0 0-.165.314v1.418z"/></svg></span></th>
+            <th scope="col" aria-label="Claude Opus 5.5 passed" title="Claude Opus 5.5"><span class="metric-heading"><span>Passed</span><svg class="model-mark opus" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg></span></th>
+            <th scope="col" aria-label="Claude Opus 5.5 median runtime" title="Claude Opus 5.5"><span class="metric-heading"><span><span class="screen-only">Median </span>runtime</span><svg class="model-mark opus" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg></span></th>
+          </tr>
         </thead>
         <tbody><tr>
           <th scope="row"><button class="task-open" type="button" data-task="app-allocation-approval" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for app-allocation-approval">app-allocation-approval</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>19m</small></span><span class="trial pass"><span>PASS</span><small>24m</small></span><span class="trial pass"><span>PASS</span><small>24m</small></span><span class="trial pass"><span>PASS</span><small>25m</small></span><span class="trial pass"><span>PASS</span><small>27m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>22m</small></span><span class="trial fail"><span>FAIL</span><small>22m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">5 / 8</td>
           <td class="number" data-label="Astra runtime">23m 10s</td>
-          <td class="number opus" data-label="Opus passed">6 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">6 / 8</td>
           <td class="number" data-label="Opus runtime">37m 44s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="change-equipment-types" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for change-equipment-types">change-equipment-types</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>12m</small></span><span class="trial pass"><span>PASS</span><small>14m</small></span><span class="trial pass"><span>PASS</span><small>14m</small></span><span class="trial pass"><span>PASS</span><small>15m</small></span><span class="trial fail"><span>FAIL</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>14m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">4 / 8</td>
           <td class="number" data-label="Astra runtime">13m 27s</td>
-          <td class="number opus" data-label="Opus passed">8 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">8 / 8</td>
           <td class="number" data-label="Opus runtime">20m 20s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="block-phase-overallocation" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for block-phase-overallocation">block-phase-overallocation</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>19m</small></span><span class="trial pass"><span>PASS</span><small>19m</small></span><span class="trial pass"><span>PASS</span><small>21m</small></span><span class="trial fail"><span>FAIL</span><small>18m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>21m</small></span><span class="trial fail"><span>FAIL</span><small>24m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">3 / 8</td>
           <td class="number" data-label="Astra runtime">20m 2s</td>
-          <td class="number opus" data-label="Opus passed">7 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">7 / 8</td>
           <td class="number" data-label="Opus runtime">44m 56s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="rippling-roster-email-ingest" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for rippling-roster-email-ingest">rippling-roster-email-ingest</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>16m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>14m</small></span><span class="trial fail"><span>FAIL</span><small>14m</small></span><span class="trial fail"><span>FAIL</span><small>14m</small></span><span class="trial fail"><span>FAIL</span><small>15m</small></span><span class="trial fail"><span>FAIL</span><small>16m</small></span><span class="trial fail"><span>FAIL</span><small>18m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">1 / 8</td>
           <td class="number" data-label="Astra runtime">14m 31s</td>
-          <td class="number opus" data-label="Opus passed">3 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">3 / 8</td>
           <td class="number" data-label="Opus runtime">23m 31s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="migration-baseline-collapse" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for migration-baseline-collapse">migration-baseline-collapse</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>10m</small></span><span class="trial pass"><span>PASS</span><small>11m</small></span><span class="trial pass"><span>PASS</span><small>11m</small></span><span class="trial pass"><span>PASS</span><small>12m</small></span><span class="trial pass"><span>PASS</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>11m</small></span><span class="trial fail"><span>FAIL</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>16m</small></span></div></td>
-          <td class="number astra" data-label="Astra passed">5 / 8</td>
+          <td class="number astra leading" data-label="Astra passed">5 / 8</td>
           <td class="number" data-label="Astra runtime">11m 30s</td>
           <td class="number opus" data-label="Opus passed">2 / 8</td>
           <td class="number" data-label="Opus runtime">34m 12s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="version-diff-paging-site-identity" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for version-diff-paging-site-identity">version-diff-paging-site-identity</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>10m</small></span><span class="trial pass"><span>PASS</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>12m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span></div></td>
-          <td class="number astra" data-label="Astra passed">2 / 8</td>
+          <td class="number astra leading" data-label="Astra passed">2 / 8</td>
           <td class="number" data-label="Astra runtime">12m 20s</td>
           <td class="number opus" data-label="Opus passed">0 / 8</td>
           <td class="number" data-label="Opus runtime">20m 10s</td>
@@ -249,31 +283,32 @@ to hold for every way the app changes what is allocated or what...</code></pre>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>8m</small></span><span class="trial pass"><span>PASS</span><small>10m</small></span><span class="trial fail"><span>FAIL</span><small>8m</small></span><span class="trial fail"><span>FAIL</span><small>8m</small></span><span class="trial fail"><span>FAIL</span><small>8m</small></span><span class="trial fail"><span>FAIL</span><small>9m</small></span><span class="trial fail"><span>FAIL</span><small>9m</small></span><span class="trial fail"><span>FAIL</span><small>11m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">2 / 8</td>
           <td class="number" data-label="Astra runtime">8m 27s</td>
-          <td class="number opus" data-label="Opus passed">7 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">7 / 8</td>
           <td class="number" data-label="Opus runtime">19m 33s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="n1x-pagerduty-slack-connection-drift" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for n1x-pagerduty-slack-connection-drift">n1x-pagerduty-slack-connection-drift</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial pass"><span>PASS</span><small>18m</small></span><span class="trial pass"><span>PASS</span><small>19m</small></span><span class="trial pass"><span>PASS</span><small>21m</small></span><span class="trial pass"><span>PASS</span><small>21m</small></span><span class="trial fail"><span>FAIL</span><small>15m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>22m</small></span><span class="trial fail"><span>FAIL</span><small>37m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">4 / 8</td>
           <td class="number" data-label="Astra runtime">20m 15s</td>
-          <td class="number opus" data-label="Opus passed">8 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">8 / 8</td>
           <td class="number" data-label="Opus runtime">27m 58s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="po-report-restore-saved-value" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for po-report-restore-saved-value">po-report-restore-saved-value</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>13m</small></span><span class="trial fail"><span>FAIL</span><small>15m</small></span><span class="trial fail"><span>FAIL</span><small>16m</small></span><span class="trial fail"><span>FAIL</span><small>17m</small></span><span class="trial fail"><span>FAIL</span><small>18m</small></span><span class="trial fail"><span>FAIL</span><small>19m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">0 / 8</td>
           <td class="number" data-label="Astra runtime">15m 27s</td>
-          <td class="number opus" data-label="Opus passed">7 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">7 / 8</td>
           <td class="number" data-label="Opus runtime">41m 34s</td>
         </tr><tr>
           <th scope="row"><button class="task-open" type="button" data-task="geo-responses-csv-export" aria-haspopup="dialog" aria-controls="task-dialog" aria-label="View instructions for geo-responses-csv-export">geo-responses-csv-export</button></th>
           <td class="trials" data-label="Astra trials"><div class="trial-chips"><span class="trial fail"><span>FAIL</span><small>17m</small></span><span class="trial fail"><span>FAIL</span><small>18m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>20m</small></span><span class="trial fail"><span>FAIL</span><small>21m</small></span><span class="trial fail"><span>FAIL</span><small>21m</small></span><span class="trial fail"><span>FAIL</span><small>22m</small></span></div></td>
           <td class="number astra" data-label="Astra passed">0 / 8</td>
           <td class="number" data-label="Astra runtime">19m 58s</td>
-          <td class="number opus" data-label="Opus passed">6 / 8</td>
+          <td class="number opus leading" data-label="Opus passed">6 / 8</td>
           <td class="number" data-label="Opus runtime">43m 7s</td>
         </tr></tbody>
       </table>
+      </div>
     </section>
   </article>
 </main>
