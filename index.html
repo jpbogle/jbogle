@@ -685,9 +685,21 @@ var active = d3.select(null);
 initLinks();
 svg.call(zoom) // delete this line to disable free zooming
    .on("wheel.zoom", null);
+const playIntro = shouldPlayIntro();
 navigate(false);
+if (playIntro) svg.call(zoom.transform, birdsEyeTransform);
 
-document.fonts.ready.then(centerActivePage);
+document.fonts.ready.then(() => {
+  if (!playIntro) return centerActivePage();
+  // Leave any navigation, panning, or zooming the visitor has already done alone.
+  if (d3.zoomTransform(svg.node()) !== birdsEyeTransform || active.node()?.id !== "home") return;
+  if (mobileLayout.matches || reducedMotion.matches) return navigate(false);
+  grabbingDisabled = true;
+  svg.transition()
+      .delay(150)
+      .duration(850)
+      .call(zoom.transform, getTransformForPage("home"));
+});
 window.addEventListener("resize", centerActivePage);
 window.addEventListener("hashchange", () => navigate());
 mobileLayout.addEventListener("change", () => navigate(false));
@@ -705,6 +717,18 @@ document.addEventListener("keydown", event => {
     hamburger.focus({ preventScroll: true });
   }
 });
+
+function shouldPlayIntro() {
+  if (mobileLayout.matches || reducedMotion.matches) return false;
+  if (window.location.hash && window.location.hash !== "#home") return false;
+  try {
+    if (sessionStorage.getItem("home-intro-seen")) return false;
+    sessionStorage.setItem("home-intro-seen", "true");
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 // Use the URL for initial loads, menu links, and browser Back/Forward.
 function navigate(animate = true) {
