@@ -19,6 +19,11 @@
 body { margin: 0; background: var(--paper); color: var(--text); font: 14.5px/1.65 system-ui, sans-serif; }
 main { max-width: 1344px; margin: 0 auto; padding: 52px 32px 64px; }
 header { border-bottom: 1px solid var(--rule-strong); padding-bottom: 20px; }
+.report-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.download-button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; }
+.download-button:hover { background: var(--panel); }
+.download-button:focus-visible { outline: 2px solid var(--astra); outline-offset: 3px; }
+.download-button svg { width: 18px; height: 18px; }
 h1,h2 { color: var(--ink); font-weight: 600; letter-spacing: -.025em; }
 h1 { margin: 0; font-size: 32px; line-height: 1.2; }
 h2 { margin: 0 0 14px; font-size: 19px; line-height: 1.35; }
@@ -163,7 +168,7 @@ body.dialog-open { overflow: hidden; }
   .dialog-body { padding: 20px 16px; }
 }
 @media print {
-  .task-dialog,.task-dialog::backdrop,.samples-hint { display: none !important; }
+  .task-dialog,.task-dialog::backdrop,.samples-hint,.download-button { display: none !important; }
   .task-open { text-decoration: none; }
   body.dialog-open { overflow: visible; }
 }
@@ -174,7 +179,12 @@ body.dialog-open { overflow: hidden; }
      nplus1/zendo/web/src/components/public. Charts are embedded from the PDF. -->
 <main>
   <article>
-    <header><h1>Fieldwork</h1></header>
+    <header class="report-header">
+      <h1>Fieldwork</h1>
+      <button class="download-button" type="button" aria-label="Save as PDF" title="Save as PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      </button>
+    </header>
     <div class="columns">
       <div>
         <section aria-labelledby="overview"><h2 id="overview">Overview</h2><p>Fieldwork evaluates whether coding agents can infer unstated requirements while completing real engineering work for large enterprises in private production codebases. The dataset includes 1,000+ tasks spanning full-stack application development, data engineering, SRE and infrastructure, production debugging, and performance optimization. Each environment is a production-ready codebase that lets agents run the application, spin up databases and microservices, use browsers, and test changes end-to-end as a senior engineer would.</p></section>
@@ -629,6 +639,7 @@ dev database.</code></pre></section>
 
 <script>
 (() => {
+  document.querySelector('.download-button').addEventListener('click', () => window.print());
   const dialog = document.getElementById('task-dialog');
   const title = document.getElementById('task-dialog-title');
   const body = document.getElementById('task-dialog-body');
