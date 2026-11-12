@@ -427,7 +427,7 @@ svg {
             <div class="about-copy">
               <p>I'm Jeremy, a software engineer and technologist based in New York.</p>
               <p>I'm passionate about computers, engineering and building practical, scalable software systems.</p>
-              <p>I studied electrical engineering and computer science at MIT, then stayed for a master's focused on computer systems. My <a href="docs/thesis.pdf">research</a> explored how networks can route traffic while accounting for failures.</p>
+              <p>I studied electrical engineering and computer science at MIT, then stayed for a master's focused on computer systems. My <a href="https://dl.acm.org/doi/10.1145/3341302.3342069" target="_blank" rel="noopener noreferrer">research</a> explored fault-aware traffic routing optimizations in a software-defined network.</p>
               <p>I also swam and played water polo at MIT and grew up in Boston, MA.</p>
             </div>
           </div>
@@ -820,10 +820,10 @@ function scrollSections(event) {
   }
   const preview = document.querySelector(`#menu #${next.id}`);
   preview.classList.add("scroll-preview");
-  preview.style.setProperty("--scroll-progress", Math.min(Math.abs(scrollAmount) / 240, 1));
+  preview.style.setProperty("--scroll-progress", Math.min(Math.abs(scrollAmount) / 120, 1));
 
   // Show the preview before committing, even for a large mouse-wheel step.
-  if (Math.abs(scrollAmount) >= 240 && now - scrollPreviewAt >= 200) {
+  if (Math.abs(scrollAmount) >= 120 && now - scrollPreviewAt >= 200) {
     scrollReadyAt = now + motionDuration(700);
     cancelScrollPreview();
     window.location.hash = next.id;
