@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-  <title>Me</title>
+  <title>Jeremy Bogle</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;515;600;700&display=swap" rel="stylesheet">
-  <link href="css/menu.css" rel="stylesheet">
-  <link href="css/toggle.css" rel="stylesheet">
+  <link href="css/menu.css?v=2" rel="stylesheet">
+  <link href="css/toggle.css?v=2" rel="stylesheet">
   <script src="https://kit.fontawesome.com/d74ce70443.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -18,7 +18,7 @@
 
 .dark-mode {
   color: white;
-  background: #222;
+  background: #111;
 }
 
 .dark-mode a {
@@ -230,18 +230,35 @@ svg {
 }
 
 .zoom-button {
+  display: block;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
   cursor: pointer;
   font-size: 40px;
-  color: #ddd;
+  color: #777;
   transition: .2s all;
   text-align: center;
 }
 
 .zoom-button:hover {
   transform: scale(1.1);
-  color: #888;
+  color: #444;
 }
 
+.dark-mode .zoom-button { color: #ddd; }
+.dark-mode .zoom-button:hover { color: white; }
+.zoom-button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  #menuToggle span, #menuToggle a, #menu, #switch + label::after, .zoom-button {
+    transition: none;
+  }
+  .zoom-button:hover { transform: none; }
+}
 
 /* ------------------ Overrides ------------------ */
 
@@ -261,16 +278,36 @@ svg {
   color: rgba(220,220,220,1);
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-  .page-inner {
-    width: 80%;
-    margin: 0px auto;
-    padding-top: 0px;
+/* Small screens use the same content as ordinary scrolling pages. */
+@media screen and (max-width: 700px), screen and (max-height: 500px) {
+  body { overflow: auto; }
+  #svg-outer, #zoom-buttons { display: none; }
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 24px; background: white; z-index: 100; }
+  #menuToggle { top: 0; left: 0; }
+  #menu {
+    top: -16px;
+    left: -16px;
+    margin: 0;
+    padding: 64px 24px 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px #0002;
   }
-
-  #home {
-    padding-top: 70px;
-  }
+  .dark-mode nav, .dark-mode #menu { background: #111; }
+  #mobile-page { padding: 88px 24px 48px; max-width: 660px; margin: 0 auto; }
+  #mobile-page .page-inner { width: 100%; padding: 0; margin: 0; }
+  #mobile-page .title { margin-bottom: 28px; }
+  #mobile-page #home { display: flex; align-items: center; min-height: calc(100dvh - 136px); }
+  #home #card { width: 100%; margin: 0; flex-direction: column; gap: 28px; }
+  #home #card #headshot { height: 144px; margin: 0; }
+  #home #card #info { width: 100%; line-height: 1.6; }
+  .list .list-item { margin-bottom: 28px; }
+  .list .list-item .notes { margin-left: 0; font-size: 16px; line-height: 1.6; }
+  #mobile-page .resume { font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
+  #mobile-page .resume .text-medium { font-size: 17px; }
+  #mobile-page .resume .justify-between { flex-wrap: wrap; gap: 4px 12px; }
+  #mobile-page .resume .r-section { margin-top: 28px; }
+  #mobile-page .resume .r-item { margin-top: 20px; }
 }
 
 </style>
@@ -278,7 +315,7 @@ svg {
     <!-- <div id="nav" xmlns="http://www.w3.org/1999/xhtml"></div> -->
     <nav role="navigation">
       <div id="menuToggle">
-        <input id="hamburger" type="checkbox" />
+        <input id="hamburger" type="checkbox" aria-label="Navigation menu" aria-controls="menu" />
         <span></span>
         <span></span>
         <span></span>
@@ -287,15 +324,16 @@ svg {
       </div>
     </nav>
     <div id="zoom-buttons">
-      <div class="zoom-button" id="zoom-in">+</div>
-      <div class="zoom-button" id="zoom-out">-</div>
+      <button class="zoom-button" id="zoom-in" type="button" aria-label="Zoom in">+</button>
+      <button class="zoom-button" id="zoom-out" type="button" aria-label="Zoom out">-</button>
     </div>
+    <main id="mobile-page" hidden></main>
     <svg id="svg-outer" viewbox="0,0,800,800">
       <g id="view-box" width="100%">
         <foreignObject id="home-outer" class="page-outer" x="0" y="0" width="100%" height="200%">
           <div class="page-inner" id="home" xmlns="http://www.w3.org/1999/xhtml">
             <div id="card">
-              <img id="headshot" src="img/headshot-generated-field.png" alt="Jeremy Bogle"/>
+              <img id="headshot" src="img/headshot-generated-field-square.jpeg" alt="Jeremy Bogle"/>
               <div id="info">
                 <div class="item">Jeremy Bogle | <a href="mailto:jeremy@bogle.cc">jeremy@bogle.cc</a></div>
                 <div style="height:1px;background:#ddd"></div>
@@ -606,9 +644,15 @@ const pages = [
     },
   ];
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+function motionDuration(milliseconds) {
+  return reducedMotion.matches ? 0 : milliseconds;
+}
+
 let grabbingDisabled = false;
 const zoom = d3.zoom()
   .scaleExtent([.25, 2])
+  .duration(motionDuration(250))
   .on("start", () => {
     if (!grabbingDisabled) {
       d3.select('#svg-outer').attr("style", "cursor: grabbing")
@@ -632,39 +676,68 @@ const svg = d3.select("#svg-outer")
               .on("click", stopped);
 
 const retiredPages = ["#skills", "#interests", "#projects"];
-var hash = retiredPages.includes(window.location.hash) ? "#about" : window.location.hash;
-if (!pages.some(page => `#${page.id}` === hash)) hash = "#home";
+const mobileLayout = window.matchMedia("screen and (max-width: 700px), screen and (max-height: 500px)");
+const mobilePage = document.getElementById("mobile-page");
+var active = d3.select(null);
 
 initLinks();
-
-if (window.location.hash && window.location.hash !== hash) {
-  window.history.replaceState(null, "", hash);
-}
 svg.call(zoom) // delete this line to disable free zooming
-   .call(zoom.transform, getTransformForPage(hash.slice(1)))
    .on("wheel.zoom", null);
-
-var active = d3.select(`#menu ${hash}`).classed("active", true);
+navigate(false);
 
 document.fonts.ready.then(centerActivePage);
 window.addEventListener("resize", centerActivePage);
+window.addEventListener("hashchange", () => navigate());
+mobileLayout.addEventListener("change", () => navigate(false));
+reducedMotion.addEventListener("change", () => zoom.duration(motionDuration(250)));
+
+// Use the URL for initial loads, menu links, and browser Back/Forward.
+function navigate(animate = true) {
+  let hash = retiredPages.includes(window.location.hash) ? "#about" : window.location.hash;
+  if (!pages.some(page => `#${page.id}` === hash)) hash = "#home";
+  if (window.location.hash && window.location.hash !== hash) {
+    window.history.replaceState(null, "", hash);
+  }
+
+  active.classed("active", false);
+  active = d3.select(`#menu ${hash}`).classed("active", true);
+  document.getElementById("hamburger").checked = false;
+  grabbingDisabled = true;
+  svg.interrupt();
+  // Move the existing content; don't maintain a separate mobile copy.
+  pages.forEach(page => {
+    const parent = mobileLayout.matches && hash === `#${page.id}`
+      ? mobilePage : document.getElementById(`${page.id}-outer`);
+    if (page.content.parentElement !== parent) parent.appendChild(page.content);
+  });
+  mobilePage.hidden = !mobileLayout.matches;
+  if (mobileLayout.matches) {
+    window.scrollTo(0, 0);
+    return;
+  }
+  const target = getTransformForPage(hash.slice(1));
+  const view = animate ? svg.transition().duration(motionDuration(700)) : svg;
+  view.call(zoom.transform, target);
+}
 
 function initLinks() {
   const menu = d3.select("#menu");
   pages.forEach(link => {
+    link.content = document.querySelector(`#${link.id}-outer .page-inner`);
     d3.select(`#${link.id}-outer`)
       .attr("x", link.x)
       .attr("y", link.y)
     menu.append("a")
         .attr("href", `#${link.id}`)
+        .on("click", clicked)
       .append("li")
         .attr("id", link.id)
-        .html(link.title)
-        .on("click", clicked);
+        .html(link.title);
   });
   menu.append("input")
     .attr("type", "checkbox")
     .attr("id", "switch")
+    .attr("aria-label", "Dark mode")
     .on("click", toggleDarkMode)
   menu.append("label")
     .attr("for", "switch")
@@ -694,31 +767,28 @@ function getTransformForPage(id) {
 }
 
 function centerActivePage() {
-  if (active.node()) {
-    svg.interrupt().call(zoom.transform, getTransformForPage(active.attr("id")));
+  if (active.node() && !mobileLayout.matches) navigate(false);
+}
+
+function clicked() {
+  if (d3.event.ctrlKey || d3.event.metaKey || d3.event.shiftKey || d3.event.altKey) return;
+  if (active.node() === this.querySelector("li")) {
+    d3.event.preventDefault();
+    if (mobileLayout.matches) navigate();
+    else reset();
+  } else if (this.hash === window.location.hash) {
+    // Returning from the overview to the same URL won't fire hashchange.
+    navigate();
   }
 }
 
-function clicked(d) {
-  if (active.node() === this) return reset();
-  // d3.selectAll("#arrow").remove();
-  active.classed("active", false);
-  active = d3.select(this).classed("active", true);
-  // active.append("div").attr("id", "arrow").html("&#9758; ").lower();
-  svg.transition()
-      .duration(1500)
-      .call(zoom.transform, getTransformForPage(this.id));
-
-  grabbingDisabled = true;
-  document.getElementById("hamburger").click();
-}
-
 function reset() {
+  document.getElementById("hamburger").checked = false;
   d3.selectAll("#arrow").remove();
   active.classed("active", false);
   active = d3.select(null);
   svg.transition()
-      .duration(750)
+      .duration(motionDuration(500))
       .call(zoom.transform, birdsEyeTransform);
 }
 
@@ -734,11 +804,11 @@ function toggleDarkMode() {
 }
 
 d3.select("#zoom-in").on("click", function() {
-  zoom.scaleBy(svg.transition().duration(100), 1.2);
+  zoom.scaleBy(svg.transition().duration(motionDuration(100)), 1.2);
 });
 
 d3.select("#zoom-out").on("click", function() {
-  zoom.scaleBy(svg.transition().duration(100), 0.8);
+  zoom.scaleBy(svg.transition().duration(motionDuration(100)), 0.8);
 });
 
 </script>

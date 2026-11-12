@@ -11,6 +11,7 @@
 
 #menuToggle {
   display: block;
+  width: 33px;
   position: relative;
   top: 50px;
   left: 50px;
@@ -19,6 +20,11 @@
   
   -webkit-user-select: none;
   user-select: none;
+}
+
+#menuToggle:has(> input:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: 8px;
 }
 
 #menuToggle a
@@ -38,7 +44,7 @@
 }
 
 
-#menuToggle input
+#menuToggle > input
 {
   display: block;
   width: 40px;
@@ -66,7 +72,7 @@
   margin-bottom: 5px;
   position: relative;
   
-  background: #ddd;
+  background: #777;
   border-radius: 3px;
   
   z-index: 1;
@@ -76,6 +82,10 @@
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
               background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
               opacity 0.55s ease;
+}
+
+.dark-mode #menuToggle span {
+  background: #ddd;
 }
 
 #menuToggle span:first-child
@@ -121,6 +131,7 @@
  * at the top left of the screen
  */
 #menu {
+  visibility: hidden;
   position: absolute;
   width: 120px;
   margin: -80px 0 0 -40px;
@@ -135,7 +146,7 @@
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), visibility 0.5s;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Safari */
@@ -156,5 +167,6 @@
  */
 #menuToggle input:checked ~ ul
 {
+  visibility: visible;
   transform: none;
 }

@@ -1,7 +1,13 @@
 #switch[type=checkbox]{
-	height: 0;
-	width: 0;
-    visibility: hidden;
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	opacity: 0;
+}
+
+#switch:focus-visible + label {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
 }
 
 label {
