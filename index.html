@@ -3,7 +3,7 @@
 <head>
   <title>Jeremy Bogle</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;515;600;700&display=swap" rel="stylesheet">
-  <link href="css/menu.css?v=7" rel="stylesheet">
+  <link href="css/menu.css?v=15" rel="stylesheet">
   <link href="css/toggle.css?v=5" rel="stylesheet">
   <script src="https://kit.fontawesome.com/d74ce70443.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -665,6 +665,7 @@ const zoom = d3.zoom()
   .wheelDelta(() => -d3.event.deltaY *
       (d3.event.deltaMode === 1 ? .5 : d3.event.deltaMode ? 10 : .02))
   .on("start", () => {
+    cancelScrollPreview();
     if (!grabbingDisabled) {
       d3.select('#svg-outer').attr("style", "cursor: grabbing")
     }
@@ -693,6 +694,12 @@ const menuToggle = document.getElementById("menuToggle");
 const hamburger = document.getElementById("hamburger");
 var active = d3.select(null);
 let gestureStartScale = null;
+let scrollAmount = 0;
+let lastScrollAt = 0;
+let scrollReadyAt = 0;
+let scrollPreviewAt = 0;
+let scrollOpenedMenu = false;
+let scrollIdleTimer;
 
 initLinks();
 svg.call(zoom)
@@ -740,12 +747,18 @@ reducedMotion.addEventListener("change", () => zoom.duration(motionDuration(250)
 
 // Capture outside presses before the canvas handles dragging.
 document.addEventListener("pointerdown", event => {
+  cancelScrollPreview(false);
+  scrollReadyAt = Math.max(scrollReadyAt, performance.now() + 200);
   if (!menuToggle.contains(event.target)) hamburger.checked = false;
 }, true);
+menuToggle.addEventListener("focusin", () => cancelScrollPreview(false));
+document.addEventListener("wheel", scrollSections, { passive: false });
 
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && hamburger.checked) {
     event.preventDefault();
+    cancelScrollPreview();
+    scrollReadyAt = Math.max(scrollReadyAt, performance.now() + 200);
     hamburger.checked = false;
     hamburger.focus({ preventScroll: true });
   }
@@ -758,8 +771,62 @@ document.addEventListener("keydown", event => {
                      event.key === "-" ? "zoom-out" : null;
   if (!zoomButton) return;
   event.preventDefault();
+  cancelScrollPreview();
   document.getElementById(zoomButton).click();
 });
+
+function cancelScrollPreview(closeMenu = true) {
+  clearTimeout(scrollIdleTimer);
+  document.querySelectorAll("#menu .scroll-preview")
+      .forEach(item => item.classList.remove("scroll-preview"));
+  if (closeMenu && scrollOpenedMenu) hamburger.checked = false;
+  scrollAmount = 0;
+  scrollPreviewAt = 0;
+  scrollOpenedMenu = false;
+}
+
+function scrollSections(event) {
+  if (mobileLayout.matches || event.defaultPrevented || event.ctrlKey || event.metaKey ||
+      event.altKey || event.shiftKey || gestureStartScale !== null ||
+      !event.deltaY || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
+
+  event.preventDefault();
+  const now = performance.now();
+  const idle = now - lastScrollAt;
+  lastScrollAt = now;
+  const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+  const delta = event.deltaY * unit;
+  // Finish the pan, then briefly ignore a small momentum tail. Never lock indefinitely.
+  if (now < scrollReadyAt) return;
+  if (scrollReadyAt && idle < 150 && Math.abs(delta) < 20 && now < scrollReadyAt + 600) return;
+  scrollReadyAt = 0;
+
+  const direction = Math.sign(event.deltaY);
+  if (idle > 350 || Math.sign(scrollAmount) !== direction) cancelScrollPreview();
+  const currentId = active.node()?.id || window.location.hash.slice(1) || "home";
+  const currentIndex = Math.max(0, pages.findIndex(page => page.id === currentId));
+  const next = pages[(currentIndex + direction + pages.length) % pages.length];
+
+  scrollAmount += direction * Math.min(Math.abs(delta), 100);
+  clearTimeout(scrollIdleTimer);
+  scrollIdleTimer = setTimeout(cancelScrollPreview, 500);
+
+  if (!scrollPreviewAt) {
+    scrollPreviewAt = now;
+    scrollOpenedMenu = !hamburger.checked;
+    hamburger.checked = true;
+  }
+  const preview = document.querySelector(`#menu #${next.id}`);
+  preview.classList.add("scroll-preview");
+  preview.style.setProperty("--scroll-progress", Math.min(Math.abs(scrollAmount) / 240, 1));
+
+  // Show the preview before committing, even for a large mouse-wheel step.
+  if (Math.abs(scrollAmount) >= 240 && now - scrollPreviewAt >= 200) {
+    scrollReadyAt = now + motionDuration(700);
+    cancelScrollPreview();
+    window.location.hash = next.id;
+  }
+}
 
 function shouldPlayIntro() {
   if (mobileLayout.matches || reducedMotion.matches) return false;
@@ -775,6 +842,8 @@ function shouldPlayIntro() {
 
 // Use the URL for initial loads, menu links, and browser Back/Forward.
 function navigate(animate = true) {
+  cancelScrollPreview();
+  scrollReadyAt = performance.now() + motionDuration(animate ? 700 : 0);
   let hash = retiredPages.includes(window.location.hash) ? "#about" : window.location.hash;
   if (!pages.some(page => `#${page.id}` === hash)) hash = "#home";
   if (window.location.hash && window.location.hash !== hash) {
@@ -783,6 +852,9 @@ function navigate(animate = true) {
 
   active.classed("active", false);
   active = d3.select(`#menu ${hash}`).classed("active", true);
+  d3.selectAll("#menu a").attr("aria-current", function() {
+    return this.getAttribute("href") === hash ? "page" : null;
+  });
   hamburger.checked = false;
   grabbingDisabled = true;
   svg.interrupt();
@@ -865,9 +937,11 @@ function clicked() {
 }
 
 function reset() {
+  cancelScrollPreview();
   hamburger.checked = false;
   d3.selectAll("#arrow").remove();
   active.classed("active", false);
+  d3.selectAll("#menu a").attr("aria-current", null);
   active = d3.select(null);
   svg.transition()
       .duration(motionDuration(500))

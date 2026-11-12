@@ -34,13 +34,33 @@
   transition: color 0.3s ease;
 }
 
-#menuToggle li:hover {
-  color: #62badd !important;
-  /* color: tomato !important; */
+#menuToggle li:not(.active):hover {
+  color: #777;
 }
 
 #menuToggle .active {
-  color: #bbb;
+  color: #62badd;
+}
+
+#menuToggle .scroll-preview {
+  position: relative;
+  width: fit-content;
+  color: #777;
+}
+
+.dark-mode #menuToggle li:not(.active):hover,
+.dark-mode #menuToggle .scroll-preview {
+  color: #aaa;
+}
+
+#menuToggle .scroll-preview::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  height: 1px;
+  width: calc(var(--scroll-progress, 0) * 100%);
+  background: currentColor;
 }
 
 
