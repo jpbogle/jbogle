@@ -3,7 +3,7 @@
 <head>
   <title>Jeremy Bogle</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;515;600;700&display=swap" rel="stylesheet">
-  <link href="css/menu.css?v=2" rel="stylesheet">
+  <link href="css/menu.css?v=4" rel="stylesheet">
   <link href="css/toggle.css?v=2" rel="stylesheet">
   <script src="https://kit.fontawesome.com/d74ce70443.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -678,6 +678,8 @@ const svg = d3.select("#svg-outer")
 const retiredPages = ["#skills", "#interests", "#projects"];
 const mobileLayout = window.matchMedia("screen and (max-width: 700px), screen and (max-height: 500px)");
 const mobilePage = document.getElementById("mobile-page");
+const menuToggle = document.getElementById("menuToggle");
+const hamburger = document.getElementById("hamburger");
 var active = d3.select(null);
 
 initLinks();
@@ -691,6 +693,19 @@ window.addEventListener("hashchange", () => navigate());
 mobileLayout.addEventListener("change", () => navigate(false));
 reducedMotion.addEventListener("change", () => zoom.duration(motionDuration(250)));
 
+// Capture outside presses before the canvas handles dragging.
+document.addEventListener("pointerdown", event => {
+  if (!menuToggle.contains(event.target)) hamburger.checked = false;
+}, true);
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && hamburger.checked) {
+    event.preventDefault();
+    hamburger.checked = false;
+    hamburger.focus({ preventScroll: true });
+  }
+});
+
 // Use the URL for initial loads, menu links, and browser Back/Forward.
 function navigate(animate = true) {
   let hash = retiredPages.includes(window.location.hash) ? "#about" : window.location.hash;
@@ -701,7 +716,7 @@ function navigate(animate = true) {
 
   active.classed("active", false);
   active = d3.select(`#menu ${hash}`).classed("active", true);
-  document.getElementById("hamburger").checked = false;
+  hamburger.checked = false;
   grabbingDisabled = true;
   svg.interrupt();
   // Move the existing content; don't maintain a separate mobile copy.
@@ -783,7 +798,7 @@ function clicked() {
 }
 
 function reset() {
-  document.getElementById("hamburger").checked = false;
+  hamburger.checked = false;
   d3.selectAll("#arrow").remove();
   active.classed("active", false);
   active = d3.select(null);
